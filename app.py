@@ -1,5 +1,9 @@
 import os
+from models.menu.drink import Drink
+from models.menu.dishes import Dishes
 
+from models.menu.menu_iten import MenuIten
+from models.restaurant import Restaurant
 
 restaurants = []
 
@@ -24,7 +28,29 @@ def show_options():
     print('1 - Register Restaurant')
     print('2 - List Restaurant ')
     print('3 - Change Restaurant status')
-    print('4 - Exit\n')
+    print('4 - Show the Menu by restaurant name')
+    print('5 - Exit\n')
+
+    try:
+
+        choose_option = int(input("Choose one of the options "))
+        print('You choose the option ', choose_option)
+
+        match choose_option:
+            case 1:
+               register_new_restaurant()
+            case 2:
+                list_restaurants()
+            case 3:
+                change_restaurant_status()
+            case 4:
+                show_menu_by_restaurant()
+            case 5:
+                end_app()
+            case _:
+                invalid_option()
+    except:
+        invalid_option()
 
 def back_menu():
     print()
@@ -100,31 +126,31 @@ def change_restaurant_status():
 
     back_menu()
 
-def choose_option():
-    try:
+def show_menu_by_restaurant():
+    hamburguer = Dishes('Hamburguer', 20, 'best burguer ever')
+    hamburguer.apply_discount()
+    show_subtitle('Restaurants Menu')
 
-        choose_option = int(input("Choose one of the options "))
-        print('You choose the option ', choose_option)
+    if not restaurants:
+            print('There is no Restaurant in the list')
+    else:
+        typed_name = input('Please type the restaurant name to see the menu and prices ')
 
-        match choose_option:
-            case 1:
-               register_new_restaurant()
-            case 2:
-                list_restaurants()
-            case 3:
-                change_restaurant_status()
-            case 4:
-                end_app()
-            case _:
-                invalid_option()
-    except:
-        invalid_option()
+        for restaurant in restaurants:
+
+            if typed_name == restaurant['name']:
+                test = Restaurant(typed_name, 'FastFood')
+                test.add_menu(hamburguer)
+                test.show_menu()
+            else:
+                print('Restaurant not found by this name')
+        
+    back_menu()
+
 
 def main():
-    os.system('cls')
     show_program_name()
     show_options()
-    choose_option()
-
+    pass
 if __name__ == '__main__':
     main()
