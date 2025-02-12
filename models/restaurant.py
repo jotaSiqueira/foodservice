@@ -26,6 +26,7 @@ class Restaurant:
     def status(self):
         return 'ACTIVE' if self._status else 'INACTIVE'
     
+    '''Change the status to active or inactive'''
     def change_status(self):
         self._status = not self._status
     
