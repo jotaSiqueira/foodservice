@@ -28,15 +28,6 @@ class Restaurant:
     
     def change_status(self):
         self._status = not self._status
-
-    @property
-    def media_avaliacoes(self):
-        if not self._ratings:
-            return 'Sem avaliação'
-        soma_das_notas = sum(avaliacao._nota for avaliacao in self._ratings)
-        quantidade_de_notas = len(self._ratings)
-        media = round(soma_das_notas / quantidade_de_notas, 1)
-        return media
     
 
     def add_menu(self, iten):
